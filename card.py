@@ -1,6 +1,13 @@
 """
 Card system for the card battler game.
 Data-driven card objects with effects and metadata.
+
+This module defines the core card system including:
+- Card types (Attack, Skill, Power)
+- Card rarities (Common, Uncommon, Rare)
+- Card data structure with all effects
+- Card library containing all available cards
+- Card upgrade system
 """
 
 from enum import Enum
@@ -9,69 +16,141 @@ from dataclasses import dataclass, field
 
 
 class CardType(Enum):
-    """Types of cards in the game."""
-    ATTACK = "attack"
-    SKILL = "skill"
-    POWER = "power"
+    """
+    Enumeration of card types in the game.
+    
+    Card types determine the category of a card:
+    - ATTACK: Cards that deal damage to enemies
+    - SKILL: Cards that provide utility (block, card draw, etc.)
+    - POWER: Cards that provide persistent effects throughout combat
+    """
+    ATTACK = "attack"  # Offensive cards that deal damage
+    SKILL = "skill"    # Utility cards (defense, card draw, etc.)
+    POWER = "power"    # Persistent effect cards that stay active
 
 
 class CardRarity(Enum):
-    """Card rarity levels."""
-    COMMON = "common"
-    UNCOMMON = "uncommon"
-    RARE = "rare"
+    """
+    Enumeration of card rarity levels.
+    
+    Rarity affects how often cards appear in card rewards and shops:
+    - COMMON: Most frequently found cards, basic effects
+    - UNCOMMON: Moderately rare, stronger effects
+    - RARE: Very rare, powerful effects
+    """
+    COMMON = "common"      # Most common cards, basic effects
+    UNCOMMON = "uncommon"  # Moderately rare, stronger effects
+    RARE = "rare"          # Very rare, powerful effects
 
 
 @dataclass
 class Card:
-    """Represents a single card in the game."""
-    name: str
-    card_type: CardType
-    cost: int
-    description: str
-    rarity: CardRarity = CardRarity.COMMON
+    """
+    Represents a single card in the game.
+    
+    Cards are data-driven objects that contain all information needed to play them.
+    This includes costs, effects, and upgrade values. Cards are immutable in the
+    library but can be copied and modified when added to decks.
+    
+    Attributes:
+        name: The display name of the card (e.g., "Strike", "Defend")
+        card_type: The type of card (ATTACK, SKILL, or POWER)
+        cost: Base energy cost to play the card
+        description: Text description shown to the player
+        rarity: How rare the card is (affects availability)
+        damage: Base damage dealt by the card (0 if not an attack)
+        block: Base block gained from the card (0 if not defensive)
+        energy_gain: Additional energy gained when playing (rare effect)
+        card_draw: Number of cards drawn when playing (utility effect)
+        status_effects: Dictionary mapping status names to amounts applied
+        upgraded: Whether this card has been upgraded
+        upgrade_damage: Additional damage when upgraded
+        upgrade_block: Additional block when upgraded
+        upgrade_cost_reduction: Energy cost reduction when upgraded
+    """
+    name: str  # Display name of the card
+    card_type: CardType  # Type: ATTACK, SKILL, or POWER
+    cost: int  # Energy cost to play this card
+    description: str  # Flavor text and effect description
+    rarity: CardRarity = CardRarity.COMMON  # How rare the card is
     
     # Card effects (stored as data)
-    damage: int = 0
-    block: int = 0
-    energy_gain: int = 0
-    card_draw: int = 0
+    # These values represent what the card does when played
+    damage: int = 0  # Damage dealt to enemies (for attack cards)
+    block: int = 0  # Block gained (for defensive cards)
+    energy_gain: int = 0  # Extra energy gained (rare utility effect)
+    card_draw: int = 0  # Cards drawn when played (utility effect)
     
-    # Status effects to apply
-    status_effects: Dict[str, int] = field(default_factory=dict)  # {status_name: amount}
+    # Status effects to apply when card is played
+    # Format: {status_name: amount} - e.g., {"vulnerable": 2} applies 2 vulnerable
+    status_effects: Dict[str, int] = field(default_factory=dict)
     
     # Upgrade values (for upgraded cards)
-    upgraded: bool = False
-    upgrade_damage: int = 0
-    upgrade_block: int = 0
-    upgrade_cost_reduction: int = 0
+    # When a card is upgraded, these values modify the base stats
+    upgraded: bool = False  # Whether this card instance has been upgraded
+    upgrade_damage: int = 0  # Additional damage when upgraded
+    upgrade_block: int = 0  # Additional block when upgraded
+    upgrade_cost_reduction: int = 0  # Energy cost reduction when upgraded
     
     def get_cost(self) -> int:
-        """Get the current cost of the card (accounting for upgrades)."""
+        """
+        Get the current energy cost of the card, accounting for upgrades.
+        
+        Returns:
+            The effective cost after upgrades. Never returns negative (minimum 0).
+        """
+        # If upgraded, reduce cost by upgrade_cost_reduction
+        # Use max(0, ...) to ensure cost never goes below 0
         return max(0, self.cost - (self.upgrade_cost_reduction if self.upgraded else 0))
     
     def get_damage(self) -> int:
-        """Get the current damage of the card (accounting for upgrades)."""
+        """
+        Get the current damage value of the card, accounting for upgrades.
+        
+        Returns:
+            Base damage plus any upgrade damage bonus if the card is upgraded.
+        """
+        # Add upgrade damage bonus if the card has been upgraded
         return self.damage + (self.upgrade_damage if self.upgraded else 0)
     
     def get_block(self) -> int:
-        """Get the current block of the card (accounting for upgrades)."""
+        """
+        Get the current block value of the card, accounting for upgrades.
+        
+        Returns:
+            Base block plus any upgrade block bonus if the card is upgraded.
+        """
+        # Add upgrade block bonus if the card has been upgraded
         return self.block + (self.upgrade_block if self.upgraded else 0)
     
     def upgrade(self):
-        """Upgrade this card."""
+        """
+        Mark this card as upgraded.
+        
+        This sets the upgraded flag to True, which enables upgrade bonuses
+        when get_cost(), get_damage(), or get_block() are called.
+        """
         self.upgraded = True
     
     def to_dict(self) -> Dict:
-        """Convert card to dictionary for serialization."""
+        """
+        Convert card to dictionary for serialization.
+        
+        This is used for saving game state, sending data to frontends (GUI/web),
+        and network communication. Uses get_cost(), get_damage(), get_block() to
+        include upgrade bonuses in the serialized data.
+        
+        Returns:
+            Dictionary containing all card data in a serializable format.
+        """
         return {
             'name': self.name,
-            'card_type': self.card_type.value,
-            'cost': self.get_cost(),
+            'card_type': self.card_type.value,  # Convert enum to string
+            'cost': self.get_cost(),  # Use get_cost() to include upgrades
             'description': self.description,
-            'rarity': self.rarity.value,
-            'damage': self.get_damage(),
-            'block': self.get_block(),
+            'rarity': self.rarity.value,  # Convert enum to string
+            'damage': self.get_damage(),  # Use get_damage() to include upgrades
+            'block': self.get_block(),  # Use get_block() to include upgrades
             'energy_gain': self.energy_gain,
             'card_draw': self.card_draw,
             'status_effects': self.status_effects,
@@ -80,13 +159,25 @@ class Card:
     
     @classmethod
     def from_dict(cls, data: Dict) -> 'Card':
-        """Create card from dictionary."""
+        """
+        Create a Card instance from a dictionary (deserialization).
+        
+        This is the reverse of to_dict(), used for loading saved games or
+        receiving card data from external sources. Uses .get() with defaults
+        to handle missing fields gracefully.
+        
+        Args:
+            data: Dictionary containing card data (from to_dict() or similar)
+            
+        Returns:
+            New Card instance with data from the dictionary
+        """
         card = cls(
             name=data['name'],
-            card_type=CardType(data['card_type']),
-            cost=data.get('cost', 0),
+            card_type=CardType(data['card_type']),  # Convert string back to enum
+            cost=data.get('cost', 0),  # Default to 0 if missing
             description=data.get('description', ''),
-            rarity=CardRarity(data.get('rarity', 'common')),
+            rarity=CardRarity(data.get('rarity', 'common')),  # Default to common
             damage=data.get('damage', 0),
             block=data.get('block', 0),
             energy_gain=data.get('energy_gain', 0),
@@ -98,11 +189,27 @@ class Card:
 
 
 class CardLibrary:
-    """Library of all available cards in the game."""
+    """
+    Library of all available cards in the game.
+    
+    This class serves as a central repository for all card definitions.
+    Cards are defined here as static data, and methods provide access
+    to cards by name, type, or as a starter deck. This allows for
+    easy expansion - just add new Card() instances to get_all_cards().
+    """
     
     @staticmethod
     def get_all_cards() -> List[Card]:
-        """Get all cards in the library."""
+        """
+        Get all cards available in the game library.
+        
+        This method returns a list of all card definitions. Each card
+        is a Card instance with its properties defined. To add new cards,
+        simply add new Card() instances to this list.
+        
+        Returns:
+            List of all Card objects in the game
+        """
         return [
             # Attack Cards
             Card(
@@ -229,28 +336,64 @@ class CardLibrary:
     
     @staticmethod
     def get_card_by_name(name: str) -> Optional[Card]:
-        """Get a card by its name."""
+        """
+        Get a card from the library by its name (case-insensitive).
+        
+        This method searches through all cards and returns a copy of the
+        matching card. A copy is returned (not the original) so that
+        modifications (like upgrades) don't affect the library template.
+        
+        Args:
+            name: The name of the card to find (case-insensitive)
+            
+        Returns:
+            A copy of the Card if found, None otherwise
+        """
+        # Search through all cards
         for card in CardLibrary.get_all_cards():
+            # Case-insensitive comparison
             if card.name.lower() == name.lower():
-                # Return a copy so modifications don't affect the library
+                # Return a deep copy so modifications don't affect the library
+                # This is important because cards can be upgraded/modified
                 import copy
                 return copy.deepcopy(card)
-        return None
+        return None  # Card not found
     
     @staticmethod
     def get_cards_by_type(card_type: CardType) -> List[Card]:
-        """Get all cards of a specific type."""
+        """
+        Get all cards of a specific type from the library.
+        
+        Useful for filtering cards by type (e.g., all attack cards,
+        all skill cards, etc.). Used for card rewards, shops, etc.
+        
+        Args:
+            card_type: The CardType enum value to filter by
+            
+        Returns:
+            List of all cards matching the specified type
+        """
+        # List comprehension filters cards by type
         return [card for card in CardLibrary.get_all_cards() if card.card_type == card_type]
     
     @staticmethod
     def get_starter_deck() -> List[Card]:
-        """Get a starter deck for new players."""
+        """
+        Get a starter deck for new players.
+        
+        The starter deck is a balanced set of basic cards that new players
+        begin with. Currently consists of 5 Strikes and 4 Defends, which
+        provides a good mix of offense and defense.
+        
+        Returns:
+            List of Card objects representing the starter deck
+        """
         import copy
         starter = []
-        # 5 Strikes
+        # Add 5 Strike cards (basic attack cards)
         for _ in range(5):
             starter.append(CardLibrary.get_card_by_name("Strike"))
-        # 4 Defends
+        # Add 4 Defend cards (basic defense cards)
         for _ in range(4):
             starter.append(CardLibrary.get_card_by_name("Defend"))
         return starter
