@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Battler - Slay the Spire Lite</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(78, 205, 196, 0.2) 0%, transparent 50%);
+            animation: pulse 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(118, 75, 162, 0.8)); }
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 1s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #4ecdc4;
+        }
+        
+        .screenshot-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 60px;
+            text-align: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 60px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚔️ CARD BATTLER ⚔️</h1>
+            <p class="subtitle">A Python-based deck-building card battler inspired by Slay the Spire</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/YOUR_USERNAME/card-battler" class="btn btn-primary" target="_blank">
+                    📦 View on GitHub
+                </a>
+                <a href="#play" class="btn btn-secondary">
+                    🎮 How to Play
+                </a>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2>🎯 About the Game</h2>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">
+                Card Battler is a turn-based deck-building game where you battle enemies using strategic card play. 
+                Build your deck, manage your energy, and defeat all enemies to progress through floors!
+            </p>
+            <div class="badge">Python 3.7+</div>
+            <div class="badge">Tkinter GUI</div>
+            <div class="badge">Web Interface</div>
+            <div class="badge">Turn-Based Combat</div>
+            <div class="badge">Deck Building</div>
+        </section>
+        
+        <section class="section">
+            <h2>✨ Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🃏 Card System</h3>
+                    <p>Data-driven card system with attacks, skills, and powers. Each card has unique effects, costs, and rarities.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚔️ Combat Engine</h3>
+                    <p>Turn-based combat with player and enemy turns. Manage energy, block, and status effects strategically.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Beautiful UI</h3>
+                    <p>Modern dark-themed GUI with visual health bars, card animations, and color-coded combat log.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👹 Enemy Encounters</h3>
+                    <p>Procedurally generated enemy encounters that scale with floor level. Each enemy has unique intents and abilities.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>✨ Status Effects</h3>
+                    <p>Rich status effect system with buffs, debuffs, and damage-over-time effects that add strategic depth.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌐 Multiple Interfaces</h3>
+                    <p>Play via desktop GUI (tkinter), web browser (Flask), or command line. Choose what works for you!</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="play">
+            <h2>🚀 Quick Start</h2>
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #4ecdc4;">Installation</h3>
+            <p style="margin-bottom: 15px;">The game runs on pure Python 3.7+ with no external dependencies required for the desktop GUI!</p>
+            
+            <div class="code-block">
+                <code>
+# Clone the repository<br>
+git clone https://github.com/YOUR_USERNAME/card-battler.git<br>
+cd card-battler<br><br>
+# Run the desktop GUI (no dependencies needed!)<br>
+python3 run_gui.py<br><br>
+# Or run the web version (requires Flask)<br>
+pip install flask<br>
+python3 web_gui_enhanced.py<br>
+# Then open http://localhost:8080 in your browser
+                </code>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>🎮 How to Play</h2>
+            <ol style="font-size: 1.1em; line-height: 2; margin-left: 20px;">
+                <li><strong>Start Combat:</strong> A new combat begins automatically with enemies and your starting hand.</li>
+                <li><strong>Play Cards:</strong> Click on cards in your hand to play them. Each card costs energy.</li>
+                <li><strong>Manage Energy:</strong> You start with 3 energy per turn. Plan your plays carefully!</li>
+                <li><strong>End Turn:</strong> Click "End Turn" when done. Enemies will attack, then your turn begins again.</li>
+                <li><strong>Win:</strong> Defeat all enemies to win the combat and progress to the next floor!</li>
+            </ol>
+            
+            <div class="screenshot-placeholder">
+                🎮 Game Screenshot<br>
+                <small>Run the game to see the beautiful interface!</small>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>📖 Game Mechanics</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>❤️ Health & Block</h3>
+                    <p>Your HP determines survival. Block reduces incoming damage. Both are shown with visual bars.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Energy</h3>
+                    <p>Energy is spent to play cards. You gain 3 energy per turn. Some cards can generate extra energy.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🃏 Card Types</h3>
+                    <p><strong>Attack:</strong> Deal damage to enemies<br>
+                    <strong>Skill:</strong> Gain block or apply effects<br>
+                    <strong>Power:</strong> Persistent effects that last all combat</p>
+                </div>
+                <div class="feature-card">
+                    <h3>✨ Status Effects</h3>
+                    <p><strong>Strength:</strong> +1 damage per stack<br>
+                    <strong>Vulnerable:</strong> Take 50% more damage<br>
+                    <strong>Weak:</strong> Deal 25% less damage<br>
+                    And many more!</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>🛠️ Development</h2>
+            <p>This project is designed to be extensible:</p>
+            <ul style="font-size: 1.1em; line-height: 2; margin-left: 20px; margin-top: 15px;">
+                <li>Add new cards by editing <code>card.py</code></li>
+                <li>Create new enemies in <code>combat.py</code></li>
+                <li>Add status effects in <code>status_effects.py</code></li>
+                <li>Integrate with Godot using <code>godot_integration.py</code></li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Made with ❤️ and Python</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/YOUR_USERNAME/card-battler" style="color: #667eea; text-decoration: none;">
+                    View Source Code on GitHub
+                </a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                Inspired by Slay the Spire by MegaCrit Games
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+
