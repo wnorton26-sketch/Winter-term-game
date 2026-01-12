@@ -13,33 +13,49 @@ from character import Character
 class CardBattlerGUI:
     """GUI application for the Card Battler game."""
     
-    # Color scheme
+    # Pixel-art card game color scheme - improved for better readability
     COLORS = {
-        'bg_dark': '#1a1a2e',
-        'bg_medium': '#16213e',
-        'bg_light': '#0f3460',
-        'card_bg': '#667eea',
-        'card_bg_hover': '#764ba2',
-        'card_disabled': '#4a5568',
+        'bg_dark': '#1a3a1a',  # Dark green background
+        'bg_medium': '#2d4d2d',  # Medium green
+        'bg_light': '#3d5d3d',  # Light green
+        'panel_bg': '#2a3a2a',  # Dark brown/green panel
+        'card_bg': '#ffffff',  # White card background
+        'card_border': '#000000',  # Black card border
+        'card_hover': '#ffff88',  # Brighter yellow hover
+        'card_disabled': '#888888',  # Gray disabled
         'text_light': '#ffffff',
-        'text_dark': '#2d3748',
-        'hp_high': '#48bb78',
-        'hp_medium': '#ed8936',
-        'hp_low': '#f56565',
-        'block': '#4ecdc4',
-        'energy': '#ffe66d',
-        'enemy_bg': '#dc3545',
-        'enemy_border': '#c82333',
-        'log_bg': '#2d3748',
-        'log_text': '#e2e8f0',
+        'text_dark': '#000000',
+        'text_accent': '#ffff00',  # Yellow accent
+        'hp_high': '#00ff00',  # Green
+        'hp_medium': '#ffaa00',  # Orange
+        'hp_low': '#ff0000',  # Red
+        'block': '#00aaff',  # Blue
+        'energy': '#ffff00',  # Yellow
+        'enemy_bg': '#4a2a2a',  # Dark red/brown
+        'enemy_border': '#8a4a4a',  # Red border
+        'log_bg': '#1a2a1a',  # Very dark green
+        'log_text': '#aaffaa',  # Light green text
+        'button_bg': '#ff6600',  # Bright orange for visibility
+        'button_text': '#000000',  # Black text for contrast
+        'button_hover': '#ff8833',  # Lighter orange on hover
+        'button_end_turn': '#00ff00',  # Bright green for END TURN
+        'button_end_turn_hover': '#33ff33',  # Lighter green
+        'button_new': '#0066ff',  # Bright blue for NEW COMBAT
+        'button_new_hover': '#3388ff',  # Lighter blue
     }
     
     def __init__(self, root):
         """Initialize the GUI."""
         self.root = root
-        self.root.title("⚔️ Card Battler - Slay the Spire Lite")
-        self.root.geometry("1400x900")
+        self.root.title("Card Battler")
+        self.root.geometry("1600x1000")
         self.root.configure(bg=self.COLORS['bg_dark'])
+        
+        # Use pixelated font if available, otherwise use monospace
+        self.font_family = 'Courier New'  # Pixel-art style font
+        self.font_size_normal = 11
+        self.font_size_large = 13
+        self.font_size_title = 15
         
         # Configure style
         self.setup_styles()
@@ -71,239 +87,230 @@ class CardBattlerGUI:
         style.configure('Card.TButton', font=('Arial', 10), padding=8)
     
     def setup_ui(self):
-        """Set up the user interface."""
-        # Main container with dark background
-        main_frame = tk.Frame(self.root, bg=self.COLORS['bg_dark'], padx=15, pady=15)
+        """Set up the user interface in pixel-art card game style."""
+        # Main container with dark green background
+        main_frame = tk.Frame(self.root, bg=self.COLORS['bg_dark'], padx=0, pady=0)
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Title
-        title_label = tk.Label(
-            main_frame,
-            text="⚔️ CARD BATTLER ⚔️",
-            font=('Arial', 24, 'bold'),
-            bg=self.COLORS['bg_dark'],
-            fg=self.COLORS['text_light']
-        )
-        title_label.pack(pady=(0, 15))
-        
-        # Content area
+        # Content area - horizontal layout
         content_frame = tk.Frame(main_frame, bg=self.COLORS['bg_dark'])
         content_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Left panel - Player info and cards
-        left_panel = tk.Frame(content_frame, bg=self.COLORS['bg_medium'], relief='raised', borderwidth=2)
-        left_panel.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
+        # Left panel - Game state and player info (like the image) - improved
+        left_panel = tk.Frame(content_frame, bg=self.COLORS['panel_bg'], width=320, relief='sunken', borderwidth=4)
+        left_panel.pack(side=tk.LEFT, fill=tk.Y, padx=8, pady=8)
+        left_panel.pack_propagate(False)
         
-        # Player stats frame
-        player_frame = tk.LabelFrame(
-            left_panel,
-            text=" 👤 PLAYER ",
-            font=('Arial', 14, 'bold'),
-            bg=self.COLORS['bg_medium'],
-            fg=self.COLORS['text_light'],
-            padx=15,
-            pady=15,
-            relief='raised',
-            borderwidth=2
+        # Enemy/Combat title (like "Big Blind" in the image) - improved
+        enemy_title_frame = tk.Frame(left_panel, bg=self.COLORS['bg_light'], relief='raised', borderwidth=2)
+        enemy_title_frame.pack(fill=tk.X, padx=8, pady=8)
+        
+        enemy_title_label = tk.Label(
+            enemy_title_frame,
+            text="ENEMY",
+            font=(self.font_family, self.font_size_title, 'bold'),
+            bg=self.COLORS['bg_light'],
+            fg=self.COLORS['text_light']
         )
-        player_frame.pack(fill=tk.X, pady=(10, 10), padx=10)
+        enemy_title_label.pack(pady=8)
         
-        # Player stats with visual bars
-        stats_container = tk.Frame(player_frame, bg=self.COLORS['bg_medium'])
-        stats_container.pack(fill=tk.X)
+        # Round/Floor info - improved
+        round_frame = tk.Frame(left_panel, bg=self.COLORS['panel_bg'])
+        round_frame.pack(fill=tk.X, padx=8, pady=5)
         
-        # HP with bar
-        hp_container = tk.Frame(stats_container, bg=self.COLORS['bg_medium'])
-        hp_container.pack(fill=tk.X, pady=5)
+        self.round_label = tk.Label(
+            round_frame,
+            text="Floor: 1",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['panel_bg'],
+            fg=self.COLORS['text_accent'],
+            anchor='w'
+        )
+        self.round_label.pack(fill=tk.X)
+        
+        # Player stats - compact display - improved
+        stats_frame = tk.Frame(left_panel, bg=self.COLORS['bg_light'], relief='sunken', borderwidth=2)
+        stats_frame.pack(fill=tk.X, padx=8, pady=8)
+        
         self.player_hp_label = tk.Label(
-            hp_container,
-            text="❤️ HP: 80/80",
-            font=('Arial', 12, 'bold'),
-            bg=self.COLORS['bg_medium'],
+            stats_frame,
+            text="HP: 80/80",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['bg_light'],
             fg=self.COLORS['hp_high'],
             anchor='w'
         )
-        self.player_hp_label.pack(fill=tk.X)
-        self.player_hp_bar = tk.Canvas(hp_container, height=20, width=300, bg=self.COLORS['bg_dark'], highlightthickness=0)
-        self.player_hp_bar.pack(fill=tk.X, pady=(5, 0))
+        self.player_hp_label.pack(fill=tk.X, padx=8, pady=4)
         
-        # Block
         self.player_block_label = tk.Label(
-            stats_container,
-            text="🛡️ Block: 0",
-            font=('Arial', 11, 'bold'),
-            bg=self.COLORS['bg_medium'],
+            stats_frame,
+            text="Block: 0",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['bg_light'],
             fg=self.COLORS['block'],
             anchor='w'
         )
-        self.player_block_label.pack(fill=tk.X, pady=5)
+        self.player_block_label.pack(fill=tk.X, padx=8, pady=4)
         
-        # Energy
         self.player_energy_label = tk.Label(
-            stats_container,
-            text="⚡ Energy: 3/3",
-            font=('Arial', 11, 'bold'),
-            bg=self.COLORS['bg_medium'],
+            stats_frame,
+            text="Energy: 3/3",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['bg_light'],
             fg=self.COLORS['energy'],
             anchor='w'
         )
-        self.player_energy_label.pack(fill=tk.X, pady=5)
+        self.player_energy_label.pack(fill=tk.X, padx=8, pady=4)
         
-        # Hand cards frame
-        hand_frame = tk.LabelFrame(
-            left_panel,
-            text=" 🃏 YOUR HAND ",
-            font=('Arial', 14, 'bold'),
-            bg=self.COLORS['bg_medium'],
-            fg=self.COLORS['text_light'],
-            padx=10,
-            pady=10,
+        # Hand count - improved
+        hand_info_frame = tk.Frame(left_panel, bg=self.COLORS['panel_bg'])
+        hand_info_frame.pack(fill=tk.X, padx=8, pady=5)
+        
+        self.hand_count_label = tk.Label(
+            hand_info_frame,
+            text="Hand: 5",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['panel_bg'],
+            fg=self.COLORS['text_accent'],
+            anchor='w'
+        )
+        self.hand_count_label.pack(fill=tk.X)
+        
+        # Controls at bottom of left panel - improved visibility
+        controls_left_frame = tk.Frame(left_panel, bg=self.COLORS['panel_bg'])
+        controls_left_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=10)
+        
+        self.end_turn_btn = tk.Button(
+            controls_left_frame,
+            text="END TURN",
+            command=self.end_turn,
+            font=(self.font_family, self.font_size_large, 'bold'),
+            bg=self.COLORS['button_end_turn'],
+            fg=self.COLORS['text_dark'],
+            activebackground=self.COLORS['button_end_turn_hover'],
+            activeforeground=self.COLORS['text_dark'],
             relief='raised',
-            borderwidth=2
+            borderwidth=3,
+            padx=15,
+            pady=8,
+            cursor='hand2'
         )
-        hand_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
+        self.end_turn_btn.pack(fill=tk.X, pady=3)
+        # Add hover effect
+        self.end_turn_btn.bind('<Enter>', lambda e: self.end_turn_btn.config(bg=self.COLORS['button_end_turn_hover']))
+        self.end_turn_btn.bind('<Leave>', lambda e: self.end_turn_btn.config(bg=self.COLORS['button_end_turn']))
         
-        # Scrollable frame for cards
-        canvas = tk.Canvas(hand_frame, bg=self.COLORS['bg_medium'], highlightthickness=0)
-        scrollbar = ttk.Scrollbar(hand_frame, orient="vertical", command=canvas.yview)
-        self.cards_container = tk.Frame(canvas, bg=self.COLORS['bg_medium'])
-        
-        self.cards_container.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        self.new_combat_btn = tk.Button(
+            controls_left_frame,
+            text="NEW COMBAT",
+            command=self.start_new_combat,
+            font=(self.font_family, self.font_size_large, 'bold'),
+            bg=self.COLORS['button_new'],
+            fg=self.COLORS['text_light'],
+            activebackground=self.COLORS['button_new_hover'],
+            activeforeground=self.COLORS['text_light'],
+            relief='raised',
+            borderwidth=3,
+            padx=15,
+            pady=8,
+            cursor='hand2'
         )
+        self.new_combat_btn.pack(fill=tk.X, pady=3)
+        # Add hover effect
+        self.new_combat_btn.bind('<Enter>', lambda e: self.new_combat_btn.config(bg=self.COLORS['button_new_hover']))
+        self.new_combat_btn.bind('<Leave>', lambda e: self.new_combat_btn.config(bg=self.COLORS['button_new']))
         
-        canvas.create_window((0, 0), window=self.cards_container, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y, pady=5)
-        
-        self.card_buttons = []
-        
-        # Right panel - Enemies and combat log
-        right_panel = tk.Frame(content_frame, bg=self.COLORS['bg_medium'], relief='raised', borderwidth=2)
+        # Right panel - Main play area with cards
+        right_panel = tk.Frame(content_frame, bg=self.COLORS['bg_dark'])
         right_panel.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
         
-        # Enemies frame
-        enemies_frame = tk.LabelFrame(
-            right_panel,
-            text=" 👹 ENEMIES ",
-            font=('Arial', 14, 'bold'),
-            bg=self.COLORS['bg_medium'],
-            fg=self.COLORS['text_light'],
-            padx=15,
-            pady=15,
-            relief='raised',
-            borderwidth=2
+        # Card play area - cards displayed in rows
+        card_area = tk.Frame(right_panel, bg=self.COLORS['bg_dark'])
+        card_area.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Enemies row (top)
+        enemies_row_frame = tk.Frame(card_area, bg=self.COLORS['bg_dark'])
+        enemies_row_frame.pack(fill=tk.X, pady=(0, 10))
+        
+        enemies_label = tk.Label(
+            enemies_row_frame,
+            text="ENEMIES",
+            font=(self.font_family, self.font_size_large, 'bold'),
+            bg=self.COLORS['bg_dark'],
+            fg=self.COLORS['text_light']
         )
-        enemies_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(10, 10))
+        enemies_label.pack(anchor='w', pady=(0, 5))
         
-        # Scrollable enemies container
-        enemies_canvas = tk.Canvas(enemies_frame, bg=self.COLORS['bg_medium'], highlightthickness=0)
-        enemies_scrollbar = ttk.Scrollbar(enemies_frame, orient="vertical", command=enemies_canvas.yview)
-        self.enemies_container = tk.Frame(enemies_canvas, bg=self.COLORS['bg_medium'])
-        
-        self.enemies_container.bind(
-            "<Configure>",
-            lambda e: enemies_canvas.configure(scrollregion=enemies_canvas.bbox("all"))
-        )
-        
-        enemies_canvas.create_window((0, 0), window=self.enemies_container, anchor="nw")
-        enemies_canvas.configure(yscrollcommand=enemies_scrollbar.set)
-        
-        enemies_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        enemies_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.enemies_container = tk.Frame(enemies_row_frame, bg=self.COLORS['bg_dark'])
+        self.enemies_container.pack(fill=tk.X)
         
         self.enemy_labels = []
         
-        # Combat log frame
-        log_frame = tk.LabelFrame(
-            right_panel,
-            text=" 📜 COMBAT LOG ",
-            font=('Arial', 14, 'bold'),
-            bg=self.COLORS['bg_medium'],
-            fg=self.COLORS['text_light'],
-            padx=10,
-            pady=10,
-            relief='raised',
-            borderwidth=2
+        # Player hand row (bottom) - cards displayed horizontally
+        hand_row_frame = tk.Frame(card_area, bg=self.COLORS['bg_dark'])
+        hand_row_frame.pack(fill=tk.X, pady=(10, 0))
+        
+        hand_label = tk.Label(
+            hand_row_frame,
+            text="YOUR HAND",
+            font=(self.font_family, self.font_size_large, 'bold'),
+            bg=self.COLORS['bg_dark'],
+            fg=self.COLORS['text_light']
         )
-        log_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
+        hand_label.pack(anchor='w', pady=(0, 5))
+        
+        # Scrollable horizontal container for hand cards
+        hand_canvas = tk.Canvas(hand_row_frame, bg=self.COLORS['bg_dark'], highlightthickness=0, height=200)
+        hand_scrollbar = ttk.Scrollbar(hand_row_frame, orient="horizontal", command=hand_canvas.xview)
+        self.cards_container = tk.Frame(hand_canvas, bg=self.COLORS['bg_dark'])
+        
+        self.cards_container.bind(
+            "<Configure>",
+            lambda e: hand_canvas.configure(scrollregion=hand_canvas.bbox("all"))
+        )
+        
+        hand_canvas.create_window((0, 0), window=self.cards_container, anchor="nw")
+        hand_canvas.configure(xscrollcommand=hand_scrollbar.set)
+        
+        hand_canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        hand_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+        
+        self.card_buttons = []
+        
+        # Combat log at bottom
+        log_frame = tk.Frame(right_panel, bg=self.COLORS['bg_dark'], relief='sunken', borderwidth=2)
+        log_frame.pack(fill=tk.BOTH, expand=False, padx=10, pady=5, ipady=5)
+        
+        log_label = tk.Label(
+            log_frame,
+            text="COMBAT LOG",
+            font=(self.font_family, self.font_size_normal, 'bold'),
+            bg=self.COLORS['bg_dark'],
+            fg=self.COLORS['text_light']
+        )
+        log_label.pack(anchor='w', padx=5, pady=2)
         
         self.combat_log = scrolledtext.ScrolledText(
             log_frame,
-            height=15,
+            height=8,
             wrap=tk.WORD,
             bg=self.COLORS['log_bg'],
             fg=self.COLORS['log_text'],
-            font=('Courier New', 10),
+            font=(self.font_family, 9),
             insertbackground=self.COLORS['text_light'],
-            selectbackground=self.COLORS['card_bg']
+            selectbackground=self.COLORS['card_bg'],
+            relief='flat',
+            borderwidth=0
         )
         self.combat_log.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         self.combat_log.config(state=tk.DISABLED)
         
         # Configure text tags for colored log messages
-        self.combat_log.tag_config("damage", foreground="#ff6b6b")
-        self.combat_log.tag_config("block", foreground="#4ecdc4")
-        self.combat_log.tag_config("energy", foreground="#ffe66d")
-        self.combat_log.tag_config("played", foreground="#667eea", font=('Courier New', 10, 'bold'))
+        self.combat_log.tag_config("damage", foreground="#ff0000")
+        self.combat_log.tag_config("block", foreground="#00aaff")
+        self.combat_log.tag_config("energy", foreground="#ffff00")
+        self.combat_log.tag_config("played", foreground="#ffff00", font=(self.font_family, 9, 'bold'))
         
-        # Bottom panel - Controls
-        controls_frame = tk.Frame(main_frame, bg=self.COLORS['bg_dark'])
-        controls_frame.pack(fill=tk.X, pady=(10, 0))
-        
-        self.end_turn_btn = tk.Button(
-            controls_frame,
-            text="⏭️ END TURN",
-            command=self.end_turn,
-            font=('Arial', 12, 'bold'),
-            bg=self.COLORS['card_bg'],
-            fg=self.COLORS['text_light'],
-            activebackground=self.COLORS['card_bg_hover'],
-            activeforeground=self.COLORS['text_light'],
-            relief='raised',
-            borderwidth=3,
-            padx=20,
-            pady=10,
-            cursor='hand2'
-        )
-        self.end_turn_btn.pack(side=tk.LEFT, padx=10)
-        
-        self.new_combat_btn = tk.Button(
-            controls_frame,
-            text="🔄 NEW COMBAT",
-            command=self.start_new_combat,
-            font=('Arial', 12, 'bold'),
-            bg=self.COLORS['card_bg'],
-            fg=self.COLORS['text_light'],
-            activebackground=self.COLORS['card_bg_hover'],
-            activeforeground=self.COLORS['text_light'],
-            relief='raised',
-            borderwidth=3,
-            padx=20,
-            pady=10,
-            cursor='hand2'
-        )
-        self.new_combat_btn.pack(side=tk.LEFT, padx=10)
-        
-        self.quit_btn = tk.Button(
-            controls_frame,
-            text="❌ QUIT",
-            command=self.root.quit,
-            font=('Arial', 12, 'bold'),
-            bg='#c82333',
-            fg=self.COLORS['text_light'],
-            activebackground='#bd2130',
-            activeforeground=self.COLORS['text_light'],
-            relief='raised',
-            borderwidth=3,
-            padx=20,
-            pady=10,
-            cursor='hand2'
-        )
-        self.quit_btn.pack(side=tk.LEFT, padx=10)
     
     def log_message(self, message):
         """Add a message to the combat log."""
@@ -335,23 +342,19 @@ class CardBattlerGUI:
         # Update HP label with color
         hp_color = self.COLORS['hp_high'] if hp_percent > 0.5 else self.COLORS['hp_medium'] if hp_percent > 0.25 else self.COLORS['hp_low']
         self.player_hp_label.config(
-            text=f"❤️ HP: {player.current_hp}/{player.max_hp}",
+            text=f"HP: {player.current_hp}/{player.max_hp}",
             fg=hp_color
         )
         
-        # Update HP bar
-        self.player_hp_bar.delete("all")
-        self.player_hp_bar.update_idletasks()  # Ensure widget is rendered
-        bar_width = max(self.player_hp_bar.winfo_width(), 200)
-        bar_fill_width = int(bar_width * hp_percent)
-        self.player_hp_bar.create_rectangle(0, 0, bar_width, 20, fill=self.COLORS['bg_dark'], outline='')
-        if bar_fill_width > 0:
-            self.player_hp_bar.create_rectangle(0, 0, bar_fill_width, 20, fill=hp_color, outline='')
-        self.player_hp_bar.create_text(bar_width//2, 10, text=f"{player.current_hp}/{player.max_hp}", 
-                                       fill=self.COLORS['text_light'], font=('Arial', 9, 'bold'))
+        self.player_block_label.config(text=f"Block: {player.block}")
+        self.player_energy_label.config(text=f"Energy: {player.energy}/{player.max_energy}")
         
-        self.player_block_label.config(text=f"🛡️ Block: {player.block}")
-        self.player_energy_label.config(text=f"⚡ Energy: {player.energy}/{player.max_energy}")
+        # Update round/floor
+        self.round_label.config(text=f"Floor: {self.game.floor}")
+        
+        # Update hand count
+        hand = self.current_combat.get_available_cards()
+        self.hand_count_label.config(text=f"Hand: {len(hand)}")
         
         # Update hand
         self.update_hand()
@@ -361,14 +364,14 @@ class CardBattlerGUI:
         
         # Check victory/defeat
         if self.current_combat.is_victory():
-            messagebox.showinfo("🎉 Victory!", "You defeated all enemies!")
+            messagebox.showinfo("Victory!", "You defeated all enemies!")
             self.start_new_combat()
         elif self.current_combat.is_defeat():
-            messagebox.showerror("💀 Defeat", "You have been defeated!")
+            messagebox.showerror("Defeat", "You have been defeated!")
             self.start_new_combat()
     
     def update_hand(self):
-        """Update the hand display."""
+        """Update the hand display in pixel-art card style."""
         # Clear existing buttons
         for widget in self.cards_container.winfo_children():
             widget.destroy()
@@ -384,80 +387,65 @@ class CardBattlerGUI:
             # Check if can afford
             can_play = player.energy >= card.get_cost()
             
-            # Create card frame with visual styling
+            # Create card frame - pixel-art style card (horizontal layout) - improved design
             card_frame = tk.Frame(
                 self.cards_container,
                 bg=self.COLORS['card_bg'] if can_play else self.COLORS['card_disabled'],
                 relief='raised',
                 borderwidth=3,
-                padx=12,
-                pady=10
+                width=150,
+                height=200
             )
-            card_frame.pack(fill=tk.X, pady=8, padx=5)
+            card_frame.pack(side=tk.LEFT, padx=8, pady=8)
+            card_frame.pack_propagate(False)
             
-            # Card header with cost and name
-            header_frame = tk.Frame(card_frame, bg=card_frame['bg'])
-            header_frame.pack(fill=tk.X, pady=(0, 5))
-            
-            # Cost badge
-            cost_badge = tk.Label(
-                header_frame,
+            # Card content - pixel-art style - improved
+            # Cost badge in top-left corner (more prominent)
+            cost_bg = '#ffaa00' if can_play else '#666666'
+            cost_label = tk.Label(
+                card_frame,
                 text=f" {card.get_cost()} ",
-                font=('Arial', 12, 'bold'),
-                bg=self.COLORS['text_light'],
-                fg=self.COLORS['card_bg'],
+                font=(self.font_family, self.font_size_large, 'bold'),
+                bg=cost_bg,
+                fg=self.COLORS['text_dark'],
                 relief='raised',
                 borderwidth=2
             )
-            cost_badge.pack(side=tk.LEFT, padx=(0, 10))
+            cost_label.place(x=8, y=8)
             
-            # Card name
+            # Card name (centered, bold) - improved spacing
             name_label = tk.Label(
-                header_frame,
-                text=card.name,
-                font=('Arial', 13, 'bold'),
-                bg=card_frame['bg'],
-                fg=self.COLORS['text_light'],
-                anchor='w'
-            )
-            name_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
-            
-            # Card description
-            desc_label = tk.Label(
                 card_frame,
-                text=card.description,
-                font=('Arial', 10),
+                text=card.name.upper(),
+                font=(self.font_family, self.font_size_normal, 'bold'),
                 bg=card_frame['bg'],
-                fg=self.COLORS['text_light'],
-                anchor='w',
-                wraplength=400,
-                justify='left'
+                fg=self.COLORS['text_dark'],
+                wraplength=130,
+                justify='center'
             )
-            desc_label.pack(fill=tk.X, pady=(0, 5))
+            name_label.place(relx=0.5, rely=0.35, anchor='center')
             
-            # Card stats
-            stats_frame = tk.Frame(card_frame, bg=card_frame['bg'])
-            stats_frame.pack(fill=tk.X)
-            
-            stats_parts = []
+            # Card stats/icons in center
+            stats_text = ""
             if card.get_damage() > 0:
-                stats_parts.append(f"⚔️ {card.get_damage()}")
+                stats_text += f"{card.get_damage()}\n"
             if card.get_block() > 0:
-                stats_parts.append(f"🛡️ {card.get_block()}")
+                stats_text += f"+{card.get_block()}\n"
             if card.card_draw > 0:
-                stats_parts.append(f"📖 +{card.card_draw}")
+                stats_text += f"Draw {card.card_draw}\n"
             if card.energy_gain > 0:
-                stats_parts.append(f"⚡ +{card.energy_gain}")
+                stats_text += f"+{card.energy_gain} Energy"
             
-            if stats_parts:
+            if stats_text:
                 stats_label = tk.Label(
-                    stats_frame,
-                    text="  |  ".join(stats_parts),
-                    font=('Arial', 10, 'bold'),
+                    card_frame,
+                    text=stats_text.strip(),
+                    font=(self.font_family, self.font_size_normal),
                     bg=card_frame['bg'],
-                    fg=self.COLORS['text_light']
+                    fg=self.COLORS['text_dark'],
+                    justify='center'
                 )
-                stats_label.pack(anchor='w')
+                stats_label.place(relx=0.5, rely=0.6, anchor='center')
             
             # Make card clickable
             if can_play:
@@ -468,22 +456,37 @@ class CardBattlerGUI:
                 
                 play_func = make_play_func(card, i)
                 card_frame.bind('<Button-1>', play_func)
-                card_frame.bind('<Enter>', lambda e, f=card_frame: f.config(bg=self.COLORS['card_bg_hover']))
-                card_frame.bind('<Leave>', lambda e, f=card_frame: f.config(bg=self.COLORS['card_bg']))
+                # Improved hover effect
+                def on_enter(e):
+                    card_frame.config(bg=self.COLORS['card_hover'], relief='sunken', borderwidth=4)
+                    cost_label.config(bg='#ffcc00')
+                def on_leave(e):
+                    card_frame.config(bg=self.COLORS['card_bg'], relief='raised', borderwidth=3)
+                    cost_label.config(bg='#ffaa00')
+                card_frame.bind('<Enter>', on_enter)
+                card_frame.bind('<Leave>', on_leave)
                 card_frame.config(cursor='hand2')
                 
                 # Make all child widgets clickable too
-                for widget in [header_frame, name_label, desc_label, stats_frame, cost_badge]:
+                for widget in [cost_label, name_label]:
                     if widget:
                         widget.bind('<Button-1>', play_func)
                         widget.config(cursor='hand2')
-                        if isinstance(widget, tk.Frame):
-                            widget.config(bg=card_frame['bg'])
+                if stats_text:
+                    stats_label.bind('<Button-1>', play_func)
+                    stats_label.config(cursor='hand2')
+            else:
+                # Gray out disabled cards
+                card_frame.config(bg=self.COLORS['card_disabled'])
+                cost_label.config(bg=self.COLORS['card_disabled'], fg='#666666')
+                name_label.config(bg=self.COLORS['card_disabled'], fg='#666666')
+                if stats_text:
+                    stats_label.config(bg=self.COLORS['card_disabled'], fg='#666666')
             
             self.card_buttons.append(card_frame)
     
     def update_enemies(self):
-        """Update the enemies display."""
+        """Update the enemies display in pixel-art card style."""
         # Clear existing labels
         for widget in self.enemies_container.winfo_children():
             widget.destroy()
@@ -496,92 +499,76 @@ class CardBattlerGUI:
             if not enemy.is_alive():
                 continue
             
-            # Enemy frame with visual styling
+            # Enemy card - pixel-art style (displayed horizontally)
+            hp_percent = enemy.current_hp / enemy.max_hp
+            hp_color = self.COLORS['hp_high'] if hp_percent > 0.5 else self.COLORS['hp_medium'] if hp_percent > 0.25 else self.COLORS['hp_low']
+            
             enemy_frame = tk.Frame(
                 self.enemies_container,
                 bg=self.COLORS['enemy_bg'],
                 relief='raised',
                 borderwidth=3,
-                padx=15,
-                pady=12
+                width=170,
+                height=210
             )
-            enemy_frame.pack(fill=tk.X, pady=8, padx=5)
+            enemy_frame.pack(side=tk.LEFT, padx=8, pady=8)
+            enemy_frame.pack_propagate(False)
             
             # Enemy name
-            hp_percent = enemy.current_hp / enemy.max_hp
-            hp_color = self.COLORS['hp_high'] if hp_percent > 0.5 else self.COLORS['hp_medium'] if hp_percent > 0.25 else self.COLORS['hp_low']
-            
             name_label = tk.Label(
                 enemy_frame,
-                text=f"👹 {enemy.name}",
-                font=('Arial', 14, 'bold'),
+                text=enemy.name.upper(),
+                font=(self.font_family, self.font_size_normal, 'bold'),
                 bg=self.COLORS['enemy_bg'],
                 fg=self.COLORS['text_light'],
-                anchor='w'
+                wraplength=140,
+                justify='center'
             )
-            name_label.pack(fill=tk.X, pady=(0, 8))
+            name_label.place(relx=0.5, rely=0.15, anchor='center')
             
-            # HP with visual bar
+            # HP display
             hp_label = tk.Label(
                 enemy_frame,
-                text=f"❤️ HP: {enemy.current_hp}/{enemy.max_hp}",
-                font=('Arial', 11, 'bold'),
+                text=f"HP: {enemy.current_hp}/{enemy.max_hp}",
+                font=(self.font_family, self.font_size_normal),
                 bg=self.COLORS['enemy_bg'],
                 fg=hp_color,
-                anchor='w'
+                justify='center'
             )
-            hp_label.pack(fill=tk.X, pady=(0, 5))
+            hp_label.place(relx=0.5, rely=0.4, anchor='center')
             
-            # HP bar
-            hp_bar_canvas = tk.Canvas(enemy_frame, height=18, bg=self.COLORS['bg_dark'], highlightthickness=0)
-            hp_bar_canvas.pack(fill=tk.X, pady=(0, 8))
-            bar_width = 300  # Fixed width for enemy HP bars
-            bar_fill_width = int(bar_width * hp_percent)
-            hp_bar_canvas.create_rectangle(0, 0, bar_width, 18, fill=self.COLORS['bg_dark'], outline='')
-            hp_bar_canvas.create_rectangle(0, 0, bar_fill_width, 18, fill=hp_color, outline='')
-            hp_bar_canvas.create_text(bar_width//2, 9, text=f"{enemy.current_hp}/{enemy.max_hp}", 
-                                     fill=self.COLORS['text_light'], font=('Arial', 9, 'bold'))
+            # HP bar (simple visual)
+            hp_bar = tk.Canvas(enemy_frame, width=140, height=12, bg=self.COLORS['bg_dark'], highlightthickness=0)
+            hp_bar.place(relx=0.5, rely=0.55, anchor='center')
+            bar_fill_width = int(140 * hp_percent)
+            hp_bar.create_rectangle(0, 0, 140, 12, fill=self.COLORS['bg_dark'], outline='')
+            if bar_fill_width > 0:
+                hp_bar.create_rectangle(0, 0, bar_fill_width, 12, fill=hp_color, outline='')
             
             # Block
             if enemy.block > 0:
                 block_label = tk.Label(
                     enemy_frame,
-                    text=f"🛡️ Block: {enemy.block}",
-                    font=('Arial', 10, 'bold'),
+                    text=f"Block: {enemy.block}",
+                    font=(self.font_family, self.font_size_normal),
                     bg=self.COLORS['enemy_bg'],
                     fg=self.COLORS['block'],
-                    anchor='w'
+                    justify='center'
                 )
-                block_label.pack(fill=tk.X, pady=(0, 5))
+                block_label.place(relx=0.5, rely=0.7, anchor='center')
             
             # Intent
             if enemy.intent_description:
                 intent_label = tk.Label(
                     enemy_frame,
-                    text=f"🎯 {enemy.intent_description}",
-                    font=('Arial', 10, 'italic'),
+                    text=enemy.intent_description[:20],
+                    font=(self.font_family, 8),
                     bg=self.COLORS['enemy_bg'],
                     fg=self.COLORS['text_light'],
-                    anchor='w'
+                    wraplength=140,
+                    justify='center'
                 )
-                intent_label.pack(fill=tk.X, pady=(0, 5))
-            
-            # Status effects
-            statuses = enemy.status_manager.get_all()
-            if statuses:
-                status_text = "✨ " + "  |  ".join([
-                    f"{name} ({effect.amount})" 
-                    for name, effect in statuses.items()
-                ])
-                status_label = tk.Label(
-                    enemy_frame,
-                    text=status_text,
-                    font=('Arial', 9),
-                    bg=self.COLORS['enemy_bg'],
-                    fg='#d4a5ff',
-                    anchor='w'
-                )
-                status_label.pack(fill=tk.X)
+                intent_label.place(relx=0.5, rely=0.85, anchor='center')
             
             self.enemy_labels.append(enemy_frame)
     
