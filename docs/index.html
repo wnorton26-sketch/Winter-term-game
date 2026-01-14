@@ -730,12 +730,20 @@
         .screenshot-item img {
             width: 100%;
             height: auto;
+            min-height: 300px;
+            object-fit: cover;
             display: block;
             transition: transform 0.4s;
+            background: rgba(0, 0, 0, 0.3);
         }
         
         .screenshot-item:hover img {
             transform: scale(1.05);
+        }
+        
+        .screenshot-item img[src=""],
+        .screenshot-item img:not([src]) {
+            display: none;
         }
         
         .screenshot-caption {
@@ -1080,26 +1088,34 @@
             </p>
             <div class="screenshots-gallery">
                 <div class="screenshot-item">
-                    <img src="screenshots/gameplay-1.png" alt="Card Battler Gameplay - Main Interface" onclick="openLightbox(this.src)">
-                    <div class="screenshot-caption">Main Game Interface</div>
-                </div>
-                <div class="screenshot-item">
-                    <img src="screenshots/gameplay-2.png" alt="Card Battler Gameplay - Combat" onclick="openLightbox(this.src)">
-                    <div class="screenshot-caption">Combat in Action</div>
-                </div>
-                <div class="screenshot-item">
-                    <img src="screenshots/gameplay-3.png" alt="Card Battler Gameplay - Card Selection" onclick="openLightbox(this.src)">
-                    <div class="screenshot-caption">Card Selection</div>
-                </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-placeholder">
+                    <img src="screenshots/gameplay-full.png" alt="Card Battler - Full Game Interface" onclick="openLightbox(this.src)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="screenshot-placeholder" style="display:none;">
                         <div class="screenshot-placeholder-text">
-                            Take a screenshot of your game<br>
-                            and save it as gameplay-1.png<br>
-                            in the docs/screenshots/ folder
+                            Full Game Interface<br>
+                            Save as gameplay-full.png
                         </div>
                     </div>
-                    <div class="screenshot-caption">Add Your Screenshot</div>
+                    <div class="screenshot-caption">Full Game Interface - Player Stats, Enemies, Hand & Combat Log</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="screenshots/enemies.png" alt="Card Battler - Enemy Health Display" onclick="openLightbox(this.src)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="screenshot-placeholder" style="display:none;">
+                        <div class="screenshot-placeholder-text">
+                            Enemy Health Display<br>
+                            Save as enemies.png
+                        </div>
+                    </div>
+                    <div class="screenshot-caption">Enemy Health Bars - Goblin 1 & Goblin 2</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="screenshots/cards.png" alt="Card Battler - Card Display" onclick="openLightbox(this.src)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="screenshot-placeholder" style="display:none;">
+                        <div class="screenshot-placeholder-text">
+                            Card Display<br>
+                            Save as cards.png
+                        </div>
+                    </div>
+                    <div class="screenshot-caption">Card Selection - DEFEND & STRIKE Cards</div>
                 </div>
             </div>
         </section>
