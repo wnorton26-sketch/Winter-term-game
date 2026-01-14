@@ -14,137 +14,50 @@
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
-            background: #0a1a0a;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0d1a0d;
             background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0, 50, 0, 0.08) 2px, rgba(0, 50, 0, 0.08) 4px),
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 0, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 170, 0, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.08) 0%, transparent 70%),
-                linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 50%, #0a1a0a 100%);
-            color: #fff;
-            line-height: 1.8;
+                linear-gradient(135deg, #0d1a0d 0%, #1a2e1a 50%, #0d1a0d 100%);
+            color: #e8e8e8;
+            line-height: 1.7;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-        }
-        
-        /* Decorative corner elements */
-        body::before {
-            content: '⚔️';
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 3em;
-            opacity: 0.1;
-            z-index: 0;
-            animation: floatCorner 6s ease-in-out infinite;
-        }
-        
-        @keyframes floatCorner {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-        
-        /* Animated background particles */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 170, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(0, 170, 255, 0.08) 0%, transparent 50%);
-            animation: pulse 20s ease-in-out infinite;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
-            50% { opacity: 0.7; transform: scale(1.1) rotate(5deg); }
-        }
-        
-        /* Floating particles effect */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, rgba(0, 255, 0, 0.3), transparent),
-                radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 0, 0.3), transparent),
-                radial-gradient(1px 1px at 50% 50%, rgba(0, 170, 255, 0.3), transparent),
-                radial-gradient(1px 1px at 80% 10%, rgba(0, 255, 0, 0.2), transparent),
-                radial-gradient(2px 2px at 90% 60%, rgba(255, 170, 0, 0.2), transparent);
-            background-size: 200% 200%;
-            animation: float 30s ease-in-out infinite;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        @keyframes float {
-            0%, 100% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 40px 30px;
             position: relative;
             z-index: 1;
         }
         
         header {
             text-align: center;
-            padding: 120px 50px 80px;
-            animation: fadeInDown 1.2s ease-out;
-            background: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 255, 0, 0.04) 10px, rgba(0, 255, 0, 0.04) 20px),
-                linear-gradient(135deg, rgba(42, 58, 42, 0.95) 0%, rgba(26, 58, 26, 0.98) 50%, rgba(42, 58, 42, 0.95) 100%);
-            border-radius: 35px;
-            margin-bottom: 60px;
-            border: 5px solid;
-            border-image: linear-gradient(135deg, #00ff00, #ffff00, #00aaff, #00ff00) 1;
+            padding: 100px 60px 80px;
+            animation: fadeInDown 0.8s ease-out;
+            background: linear-gradient(135deg, rgba(20, 35, 20, 0.95) 0%, rgba(15, 30, 15, 0.98) 100%);
+            border-radius: 20px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(100, 200, 100, 0.2);
             box-shadow: 
-                0 0 40px rgba(0, 255, 0, 0.4),
-                inset 0 0 40px rgba(0, 255, 0, 0.15),
-                0 15px 60px rgba(0, 0, 0, 0.6),
-                0 0 0 2px rgba(0, 255, 0, 0.2);
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(100, 200, 100, 0.1);
             position: relative;
             overflow: hidden;
-        }
-        
-        /* Decorative corner decorations */
-        header::after {
-            content: '🃏';
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 4em;
-            opacity: 0.15;
-            animation: rotate 15s linear infinite;
         }
         
         header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.5), transparent);
         }
         
         @keyframes fadeInDown {
@@ -160,49 +73,39 @@
         
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 5.5em;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #00ff00 0%, #ffff00 25%, #00aaff 50%, #ffff00 75%, #00ff00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 300% 300%;
-            animation: glow 3s ease-in-out infinite alternate, gradientShift 6s ease infinite;
-            text-shadow: 0 0 50px rgba(0, 255, 0, 0.6);
-            position: relative;
-            z-index: 1;
-            letter-spacing: 4px;
-            font-weight: 800;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        @keyframes glow {
-            from { 
-                filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6))
-                        drop-shadow(0 0 30px rgba(0, 255, 0, 0.3));
-            }
-            to { 
-                filter: drop-shadow(0 0 25px rgba(255, 255, 0, 0.8))
-                        drop-shadow(0 0 50px rgba(255, 255, 0, 0.4));
-            }
-        }
-        
-        .subtitle {
-            font-size: 2em;
-            color: rgba(255, 255, 255, 0.98);
-            margin-bottom: 40px;
-            font-weight: 400;
-            text-shadow: 
-                2px 2px 6px rgba(0, 0, 0, 0.7),
-                0 0 20px rgba(255, 255, 255, 0.2);
+            font-size: 4.5em;
+            margin-bottom: 25px;
+            color: #ffffff;
             position: relative;
             z-index: 1;
             letter-spacing: 2px;
-            line-height: 1.6;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #64c864, transparent);
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 50px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .cta-buttons {
@@ -216,72 +119,44 @@
         }
         
         .btn {
-            padding: 22px 55px;
-            font-size: 1.4em;
-            font-weight: 800;
+            padding: 16px 40px;
+            font-size: 1.1em;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 18px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 4px solid;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(0, 255, 0, 0.3),
-                inset 0 2px 5px rgba(255, 255, 255, 0.2);
+            text-transform: none;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
+            display: inline-block;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #00ff00 0%, #33ff33 100%);
-            color: #000;
-            border-color: #00cc00;
+            background: #64c864;
+            color: #ffffff;
         }
         
         .btn-primary:hover {
-            transform: translateY(-8px) scale(1.08);
-            box-shadow: 
-                0 15px 40px rgba(0, 255, 0, 0.7),
-                0 0 50px rgba(0, 255, 0, 0.5),
-                inset 0 2px 8px rgba(255, 255, 255, 0.3);
-            background: linear-gradient(135deg, #33ff33 0%, #66ff66 100%);
-            border-color: #00ff00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 200, 100, 0.4);
+            background: #7dd87d;
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, #0066ff 0%, #3388ff 100%);
-            color: white;
-            border-color: #0055cc;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .btn-secondary:hover {
-            background: linear-gradient(135deg, #3388ff 0%, #66aaff 100%);
-            transform: translateY(-8px) scale(1.08);
-            box-shadow: 
-                0 15px 40px rgba(0, 102, 255, 0.7),
-                0 0 50px rgba(0, 102, 255, 0.5),
-                inset 0 2px 8px rgba(255, 255, 255, 0.3);
-            border-color: #0066ff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
         }
         
         .btn span {
@@ -290,66 +165,27 @@
         }
         
         .section {
-            background: 
-                repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(0, 255, 0, 0.03) 15px, rgba(0, 255, 0, 0.03) 16px),
-                linear-gradient(135deg, rgba(42, 58, 42, 0.95) 0%, rgba(26, 58, 26, 0.98) 50%, rgba(42, 58, 42, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 70px;
-            margin: 60px 0;
-            border: 5px solid rgba(0, 255, 0, 0.5);
-            border-style: double;
-            animation: fadeInUp 1.2s ease-out;
+            background: linear-gradient(135deg, rgba(20, 35, 20, 0.6) 0%, rgba(15, 30, 15, 0.7) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 60px 50px;
+            margin: 50px 0;
+            border: 1px solid rgba(100, 200, 100, 0.15);
+            animation: fadeInUp 0.8s ease-out;
             box-shadow: 
-                0 15px 50px rgba(0, 0, 0, 0.6),
-                inset 0 0 40px rgba(0, 255, 0, 0.12),
-                0 0 0 2px rgba(0, 255, 0, 0.3),
-                0 0 30px rgba(0, 255, 0, 0.2);
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(100, 200, 100, 0.1);
             position: relative;
-            overflow: hidden;
         }
         
-        /* Decorative corner icons for sections */
-        .section::after {
+        .section::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.15), transparent);
-            animation: shine 4s infinite;
-            pointer-events: none;
-        }
-        
-        .section-icon {
-            position: absolute;
-            font-size: 3em;
-            opacity: 0.25;
-            animation: floatIcon 4s ease-in-out infinite;
-            pointer-events: none;
-        }
-        
-        .section:nth-child(odd) .section-icon {
-            top: 20px;
-            left: 25px;
-            content: '⚔️';
-        }
-        
-        .section:nth-child(even) .section-icon {
-            top: 20px;
-            right: 25px;
-            content: '🛡️';
-        }
-        
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-        
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
         }
         
         @keyframes fadeInUp {
@@ -365,22 +201,26 @@
         
         .section h2 {
             font-family: 'Cinzel', serif;
-            font-size: 4em;
-            margin-bottom: 50px;
-            background: linear-gradient(135deg, #00ff00 0%, #ffff00 50%, #00ff00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            color: #ffffff;
             text-align: center;
-            text-shadow: 
-                3px 3px 8px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(0, 255, 0, 0.6);
             position: relative;
             z-index: 1;
-            letter-spacing: 3px;
-            font-weight: 700;
+            letter-spacing: 1px;
+            font-weight: 600;
             padding-bottom: 20px;
-            border-bottom: 3px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #64c864, transparent);
         }
         
         .features {
@@ -483,190 +323,135 @@
         }
         
         .milestone-card {
-            background: 
-                repeating-linear-gradient(135deg, transparent, transparent 8px, rgba(0, 255, 0, 0.04) 8px, rgba(0, 255, 0, 0.04) 16px),
-                linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(20, 40, 20, 0.8) 100%);
-            padding: 35px;
-            border-radius: 25px;
-            border: 4px solid rgba(0, 255, 0, 0.5);
-            border-style: groove;
+            background: linear-gradient(135deg, rgba(15, 30, 15, 0.8) 0%, rgba(10, 25, 10, 0.9) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 200, 100, 0.2);
             position: relative;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                inset 0 0 20px rgba(0, 255, 0, 0.15),
-                0 0 0 2px rgba(0, 255, 0, 0.3);
-            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         
-        /* Decorative elements for milestone cards */
         .milestone-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #00ff00, #ffff00, #00aaff);
-            transform: scaleX(0);
-            transition: transform 0.4s;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
         .milestone-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .milestone-card::after {
-            content: '🎯';
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 1.5em;
-            opacity: 0.3;
+            opacity: 1;
         }
         
         .milestone-card.completed {
-            border-color: #00ff00;
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15) 0%, rgba(0, 200, 0, 0.2) 100%);
-            box-shadow: 
-                0 6px 25px rgba(0, 255, 0, 0.3),
-                inset 0 0 20px rgba(0, 255, 0, 0.1);
+            border-color: rgba(100, 200, 100, 0.4);
+            background: linear-gradient(135deg, rgba(20, 40, 20, 0.9) 0%, rgba(15, 35, 15, 0.95) 100%);
         }
         
-        .milestone-card.completed::before {
+        .milestone-card.completed::after {
             content: '✓';
             position: absolute;
-            top: 15px;
+            top: 20px;
             right: 20px;
-            font-size: 2.5em;
-            color: #00ff00;
+            font-size: 1.5em;
+            color: #64c864;
             font-weight: bold;
-            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-            animation: checkPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes checkPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
         }
         
         .milestone-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 
-                0 15px 50px rgba(0, 255, 0, 0.5),
-                0 0 40px rgba(0, 255, 0, 0.3),
-                inset 0 0 30px rgba(0, 255, 0, 0.2);
-            border-color: rgba(0, 255, 0, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 200, 100, 0.4);
         }
         
         .milestone-title {
-            font-size: 1.7em;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffff00 0%, #ffaa00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
-            letter-spacing: 1px;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
         
         .milestone-date {
-            font-size: 1em;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 18px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
             font-style: italic;
             font-weight: 400;
         }
         
         .milestone-description {
-            color: rgba(255, 255, 255, 0.98);
-            line-height: 1.8;
-            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            font-size: 1em;
             font-weight: 400;
         }
         
         .code-block {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(10, 30, 10, 0.9) 100%);
-            padding: 35px;
-            border-radius: 20px;
-            border-left: 8px solid #00ff00;
-            border: 4px solid rgba(0, 255, 0, 0.3);
-            border-left-width: 8px;
-            margin: 35px 0;
-            font-family: 'Courier Prime', monospace;
+            background: rgba(10, 20, 10, 0.8);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 3px solid #64c864;
+            margin: 30px 0;
+            font-family: 'Courier Prime', 'Courier New', monospace;
             overflow-x: auto;
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                inset 0 0 25px rgba(0, 255, 0, 0.15),
-                0 0 20px rgba(0, 255, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
         }
         
-        .code-block::before {
-            content: '>_';
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #00ff00;
-            font-size: 1.5em;
-            opacity: 0.6;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
-        }
-        
         .code-block code {
-            color: #00ff00;
-            font-size: 1.15em;
-            line-height: 2.2;
+            color: #a8d5a8;
+            font-size: 0.95em;
+            line-height: 1.8;
             display: block;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-            font-weight: 600;
+            font-weight: 400;
         }
         
         .badge {
             display: inline-block;
-            padding: 12px 26px;
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25) 0%, rgba(0, 200, 0, 0.3) 100%);
-            border: 3px solid rgba(0, 255, 0, 0.6);
-            border-radius: 35px;
-            margin: 12px;
-            font-size: 1.1em;
-            font-weight: 800;
-            color: #00ff00;
-            transition: all 0.4s;
-            box-shadow: 
-                0 6px 20px rgba(0, 255, 0, 0.3),
-                inset 0 2px 5px rgba(255, 255, 255, 0.2);
-            letter-spacing: 1px;
+            padding: 8px 18px;
+            background: rgba(100, 200, 100, 0.15);
+            border: 1px solid rgba(100, 200, 100, 0.3);
+            border-radius: 6px;
+            margin: 8px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #a8d5a8;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
         
         .badge:hover {
-            transform: translateY(-5px) scale(1.08);
-            box-shadow: 
-                0 10px 30px rgba(0, 255, 0, 0.5),
-                0 0 25px rgba(0, 255, 0, 0.4);
-            border-color: #00ff00;
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.35) 0%, rgba(0, 255, 0, 0.4) 100%);
+            transform: translateY(-2px);
+            background: rgba(100, 200, 100, 0.25);
+            border-color: rgba(100, 200, 100, 0.5);
         }
         
         footer {
             text-align: center;
-            padding: 70px 40px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 100px;
-            background: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 255, 0, 0.04) 10px, rgba(0, 255, 0, 0.04) 20px),
-                linear-gradient(135deg, rgba(42, 58, 42, 0.95) 0%, rgba(26, 58, 26, 0.98) 50%, rgba(42, 58, 42, 0.95) 100%);
-            border-radius: 30px;
-            border: 5px solid rgba(0, 255, 0, 0.5);
-            border-style: double;
-            box-shadow: 
-                0 15px 50px rgba(0, 0, 0, 0.6),
-                inset 0 0 40px rgba(0, 255, 0, 0.12),
-                0 0 0 2px rgba(0, 255, 0, 0.3),
-                0 0 30px rgba(0, 255, 0, 0.2);
+            padding: 50px 40px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(15, 30, 15, 0.6) 0%, rgba(10, 25, 10, 0.7) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(100, 200, 100, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
         }
         
         footer::before {
@@ -690,10 +475,9 @@
         /* Decorative separator lines */
         .decorative-separator {
             text-align: center;
-            margin: 50px 0;
-            font-size: 2em;
-            color: rgba(0, 255, 0, 0.3);
-            letter-spacing: 20px;
+            margin: 60px 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.3), transparent);
         }
         
         footer a {
@@ -793,29 +577,22 @@
         }
         
         ol li {
-            font-size: 1.4em;
-            line-height: 2.5;
-            margin-bottom: 25px;
-            padding: 25px 30px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 40, 20, 0.5) 100%);
-            border-radius: 15px;
-            border-left: 5px solid #00ff00;
-            border: 3px solid rgba(0, 255, 0, 0.3);
-            border-left-width: 6px;
-            transition: all 0.4s;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.4),
-                inset 0 0 10px rgba(0, 255, 0, 0.1);
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding: 20px 25px;
+            background: rgba(15, 30, 15, 0.5);
+            border-radius: 8px;
+            border-left: 3px solid #64c864;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         ol li:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15) 0%, rgba(0, 200, 0, 0.2) 100%);
-            transform: translateX(15px) scale(1.02);
-            border-left-color: #ffff00;
-            border-color: rgba(255, 255, 0, 0.5);
-            box-shadow: 
-                0 8px 25px rgba(0, 255, 0, 0.4),
-                inset 0 0 20px rgba(0, 255, 0, 0.2);
+            background: rgba(20, 40, 20, 0.6);
+            transform: translateX(5px);
+            border-left-color: #7dd87d;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         
         ul {
@@ -824,34 +601,31 @@
         }
         
         ul li {
-            font-size: 1.3em;
-            line-height: 2.3;
-            margin-bottom: 18px;
-            padding: 20px 25px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 40, 20, 0.5) 100%);
-            border-radius: 12px;
-            border: 2px solid rgba(0, 255, 0, 0.2);
-            transition: all 0.4s;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+            font-size: 1em;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            background: rgba(15, 30, 15, 0.4);
+            border-radius: 6px;
+            border: 1px solid rgba(100, 200, 100, 0.15);
+            transition: all 0.3s ease;
         }
         
         ul li:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.12) 0%, rgba(0, 200, 0, 0.18) 100%);
-            transform: translateX(10px) scale(1.01);
-            border-color: rgba(0, 255, 0, 0.4);
-            box-shadow: 0 6px 20px rgba(0, 255, 0, 0.3);
+            background: rgba(20, 40, 20, 0.5);
+            transform: translateX(5px);
+            border-color: rgba(100, 200, 100, 0.3);
         }
         
         code {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25) 0%, rgba(0, 200, 0, 0.3) 100%);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-family: 'Courier Prime', monospace;
-            color: #00ff00;
-            border: 2px solid rgba(0, 255, 0, 0.4);
-            font-weight: 700;
-            font-size: 1.05em;
-            box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+            background: rgba(100, 200, 100, 0.15);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier Prime', 'Courier New', monospace;
+            color: #a8d5a8;
+            border: 1px solid rgba(100, 200, 100, 0.2);
+            font-weight: 500;
+            font-size: 0.95em;
         }
         
         @media (max-width: 768px) {
@@ -893,15 +667,15 @@
                     <span>📦 View on GitHub</span>
                 </a>
                 <a href="#play" class="btn btn-secondary">
-                    <span>🎮 How to Play</span>
+                    <span>How to Play</span>
                 </a>
             </div>
         </header>
         
-        <div class="decorative-separator">✦ ✦ ✦ ✦ ✦</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>🎯 About the Game</h2>
+            <h2>About the Game</h2>
             <p style="font-size: 1.5em; margin-bottom: 40px; text-align: center; line-height: 2.2; max-width: 1100px; margin-left: auto; margin-right: auto; font-weight: 400; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
                 Card Battler is a turn-based deck-building game where you battle enemies using strategic card play. 
                 Build your deck, manage your energy, and defeat all enemies to progress through floors! 
@@ -938,13 +712,13 @@
         </section>
         
         
-        <div class="decorative-separator">⚔️ ⚔️ ⚔️ ⚔️ ⚔️</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>🏆 Project Milestones</h2>
+            <h2>Project Milestones</h2>
             <div class="milestones">
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Core Game Engine</div>
+                    <div class="milestone-title">Core Game Engine</div>
                     <div class="milestone-date">Phase 1 - Completed</div>
                     <div class="milestone-description">
                         Built the foundational turn-based combat system with player and enemy turns, 
@@ -1016,7 +790,7 @@
                 </div>
                 
                 <div class="milestone-card">
-                    <div class="milestone-title">🔮 Future: Card Upgrades</div>
+                    <div class="milestone-title"> Card Upgrades</div>
                     <div class="milestone-date">Phase 5 - Planned</div>
                     <div class="milestone-description">
                         Add card upgrade system allowing players to improve cards between combats, 
@@ -1025,7 +799,7 @@
                 </div>
                 
                 <div class="milestone-card">
-                    <div class="milestone-title">🔮 Future: Multiple Classes</div>
+                    <div class="milestone-title"> Multiple Classes</div>
                     <div class="milestone-date">Phase 5 - Planned</div>
                     <div class="milestone-description">
                         Expand character system with multiple classes, each with unique starting decks, 
@@ -1034,7 +808,7 @@
                 </div>
                 
                 <div class="milestone-card">
-                    <div class="milestone-title">🔮 Future: Relics System</div>
+                    <div class="milestone-title"> Relics System</div>
                     <div class="milestone-date">Phase 5 - Planned</div>
                     <div class="milestone-description">
                         Implement relics system - permanent upgrades that persist across combats, 
@@ -1043,7 +817,7 @@
                 </div>
                 
                 <div class="milestone-card">
-                    <div class="milestone-title">🔮 Future: Shop & Rewards</div>
+                    <div class="milestone-title"> Shop & Rewards</div>
                     <div class="milestone-date">Phase 6 - Planned</div>
                     <div class="milestone-description">
                         Add shop system between combats where players can purchase cards, remove cards, 
@@ -1053,44 +827,44 @@
             </div>
         </section>
         
-        <div class="decorative-separator">🃏 🃏 🃏 🃏 🃏</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>✨ Features</h2>
+            <h2>Features</h2>
             <div class="features">
                 <div class="feature-card">
-                    <h3>🃏 Card System</h3>
+                    <h3>Card System</h3>
                     <p>Data-driven card system with attacks, skills, and powers. Each card has unique effects, costs, and rarities. Cards can deal damage, provide block, draw cards, generate energy, or apply status effects.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚔️ Combat Engine</h3>
+                    <h3>Combat Engine</h3>
                     <p>Turn-based combat with player and enemy turns. Manage energy, block, and status effects strategically. Enemies have intents showing what they'll do next turn.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🎨 Beautiful UI</h3>
+                    <h3>Beautiful UI</h3>
                     <p>Modern pixel-art style GUI with visual health bars, card animations, color-coded combat log, and intuitive controls. Dark green theme with high-contrast buttons for easy reading.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>👹 Enemy Encounters</h3>
+                    <h3>Enemy Encounters</h3>
                     <p>Procedurally generated enemy encounters that scale with floor level. Each enemy has unique intents and abilities, creating varied and challenging combat scenarios.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>✨ Status Effects</h3>
+                    <h3>Status Effects</h3>
                     <p>Rich status effect system with buffs, debuffs, and damage-over-time effects. Includes Strength, Vulnerable, Weak, Poison, Burn, and many more that add strategic depth.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🌐 Multiple Interfaces</h3>
+                    <h3>Multiple Interfaces</h3>
                     <p>Play via desktop GUI (tkinter), web browser (Flask), or command line. Choose what works for you! All interfaces provide the same great gameplay experience.</p>
                 </div>
             </div>
         </section>
         
-        <div class="decorative-separator">⚡ ⚡ ⚡ ⚡ ⚡</div>
+        <div class="decorative-separator"></div>
         
         <section class="section" id="play">
-            <h2>🚀 Quick Start</h2>
-            <h3 style="margin-top: 30px; margin-bottom: 25px; color: #ffff00; font-size: 2.2em; text-align: center; font-weight: 700; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.5);">Installation</h3>
-            <p style="margin-bottom: 30px; font-size: 1.3em; text-align: center; font-weight: 400; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">The game runs on pure Python 3.7+ with no external dependencies required for the desktop GUI!</p>
+            <h2>Quick Start</h2>
+            <h3 style="margin-top: 30px; margin-bottom: 25px; color: #ffffff; font-size: 1.8em; text-align: center; font-weight: 600;">Installation</h3>
+            <p style="margin-bottom: 30px; font-size: 1.1em; text-align: center; font-weight: 400; color: rgba(255, 255, 255, 0.8);">The game runs on pure Python 3.7+ with no external dependencies required for the desktop GUI!</p>
             
             <div class="code-block">
                 <code>
@@ -1107,10 +881,10 @@ python3 web_gui_enhanced.py<br>
             </div>
         </section>
         
-        <div class="decorative-separator">🎮 🎮 🎮 🎮 🎮</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>🎮 How to Play</h2>
+            <h2>How to Play</h2>
             <ol>
                 <li><strong>Start Combat:</strong> A new combat begins automatically with enemies and your starting hand.</li>
                 <li><strong>Play Cards:</strong> Click on cards in your hand to play them. Each card costs energy (shown as orange badges).</li>
@@ -1120,27 +894,27 @@ python3 web_gui_enhanced.py<br>
             </ol>
         </section>
         
-        <div class="decorative-separator">📖 📖 📖 📖 📖</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>📖 Game Mechanics</h2>
+            <h2>Game Mechanics</h2>
             <div class="features">
                 <div class="feature-card">
-                    <h3>❤️ Health & Block</h3>
+                    <h3>Health & Block</h3>
                     <p>Your HP determines survival. Block reduces incoming damage. Both are shown with visual bars and color-coded indicators (green = healthy, orange = warning, red = danger).</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Energy</h3>
+                    <h3>Energy</h3>
                     <p>Energy is spent to play cards. You gain 3 energy per turn. Some cards can generate extra energy, allowing for powerful combo turns.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🃏 Card Types</h3>
+                    <h3>Card Types</h3>
                     <p><strong>Attack:</strong> Deal damage to enemies<br>
                     <strong>Skill:</strong> Gain block or apply effects<br>
                     <strong>Power:</strong> Persistent effects that last all combat</p>
                 </div>
                 <div class="feature-card">
-                    <h3>✨ Status Effects</h3>
+                    <h3>Status Effects</h3>
                     <p><strong>Strength:</strong> +1 damage per stack<br>
                     <strong>Vulnerable:</strong> Take 50% more damage<br>
                     <strong>Weak:</strong> Deal 25% less damage<br>
@@ -1150,10 +924,10 @@ python3 web_gui_enhanced.py<br>
             </div>
         </section>
         
-        <div class="decorative-separator">🛠️ 🛠️ 🛠️ 🛠️ 🛠️</div>
+        <div class="decorative-separator"></div>
         
         <section class="section">
-            <h2>🛠️ Development</h2>
+            <h2>Development</h2>
             <p style="font-size: 1.4em; margin-bottom: 30px; text-align: center; font-weight: 500; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">This project is designed to be extensible and easy to modify:</p>
             <ul>
                 <li>Add new cards by editing <code>card.py</code></li>
@@ -1165,7 +939,7 @@ python3 web_gui_enhanced.py<br>
         </section>
         
         <footer>
-            <p style="font-size: 1.8em; margin-bottom: 25px; font-weight: 800; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.3);">Made with ❤️ and Python</p>
+            <p style="font-size: 1.1em; margin-bottom: 20px; font-weight: 400; color: rgba(255, 255, 255, 0.6);">Made with Python</p>
             <p style="margin-top: 20px;">
                 <a href="https://github.com/wnorton26-sketch/Winter-term-game" target="_blank">
                     View Source Code on GitHub →
