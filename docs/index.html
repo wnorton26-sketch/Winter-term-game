@@ -40,12 +40,12 @@
             padding: 100px 60px 80px;
             animation: fadeInDown 0.8s ease-out;
             background: linear-gradient(135deg, rgba(20, 35, 20, 0.95) 0%, rgba(15, 30, 15, 0.98) 100%);
-            border-radius: 20px;
+            border-radius: 12px;
             margin-bottom: 80px;
-            border: 1px solid rgba(100, 200, 100, 0.2);
+            border: 1px solid rgba(100, 200, 100, 0.15);
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(100, 200, 100, 0.1);
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(100, 200, 100, 0.08);
             position: relative;
             overflow: hidden;
         }
@@ -73,13 +73,13 @@
         
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 4.5em;
+            font-size: 4em;
             margin-bottom: 25px;
             color: #ffffff;
             position: relative;
             z-index: 1;
-            letter-spacing: 2px;
-            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-weight: 600;
             line-height: 1.2;
         }
         
@@ -89,8 +89,8 @@
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
+            width: 60px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #64c864, transparent);
         }
         
@@ -231,49 +231,25 @@
         }
         
         .feature-card {
-            background: 
-                repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0, 255, 0, 0.06) 5px, rgba(0, 255, 0, 0.06) 10px),
-                linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 40, 20, 0.85) 100%);
-            padding: 40px;
-            border-radius: 25px;
-            border: 4px solid rgba(0, 255, 0, 0.6);
-            border-style: double;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                inset 0 0 25px rgba(0, 255, 0, 0.2),
-                0 0 0 2px rgba(0, 255, 0, 0.4),
-                0 0 20px rgba(0, 255, 0, 0.2);
+            background: linear-gradient(135deg, rgba(15, 30, 15, 0.8) 0%, rgba(10, 25, 10, 0.9) 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 200, 100, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             position: relative;
-            overflow: hidden;
         }
         
-        /* Card corner decorations - top right */
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 35px;
-            height: 35px;
-            border-top: 4px solid rgba(0, 255, 0, 0.6);
-            border-right: 4px solid rgba(0, 255, 0, 0.6);
-            border-radius: 0 12px 0 0;
-            z-index: 2;
-        }
-        
-        /* Hover glow effect */
         .feature-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 0, 0.15) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
             opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 1;
+            transition: opacity 0.3s;
         }
         
         .feature-card:hover::before {
@@ -281,28 +257,20 @@
         }
         
         .feature-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 
-                0 15px 50px rgba(0, 255, 0, 0.6),
-                0 0 40px rgba(0, 255, 0, 0.4),
-                inset 0 0 40px rgba(0, 255, 0, 0.2),
-                0 0 0 3px rgba(0, 255, 0, 0.9);
-            border-color: rgba(0, 255, 0, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 200, 100, 0.4);
         }
         
         
         .feature-card h3 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffff00 0%, #ffaa00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+            font-size: 1.6em;
+            margin-bottom: 18px;
+            color: #ffffff;
+            font-weight: 600;
             position: relative;
             z-index: 1;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         .feature-card p {
@@ -454,23 +422,6 @@
             background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
         }
         
-        footer::before {
-            content: '❤️';
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            font-size: 2em;
-            opacity: 0.2;
-        }
-        
-        footer::after {
-            content: '💚';
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2em;
-            opacity: 0.2;
-        }
         
         /* Decorative separator lines */
         .decorative-separator {
@@ -481,17 +432,103 @@
         }
         
         footer a {
-            color: #00ff00;
+            color: #64c864;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 500;
             transition: all 0.3s;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
         
         footer a:hover {
-            color: #ffff00;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
-            transform: scale(1.1);
+            color: #7dd87d;
+            text-decoration: underline;
+        }
+        
+        /* Screenshots Gallery */
+        .screenshots-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .screenshot-item {
+            background: linear-gradient(135deg, rgba(15, 30, 15, 0.8) 0%, rgba(10, 25, 10, 0.9) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 200, 100, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .screenshot-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        
+        .screenshot-item:hover::before {
+            opacity: 1;
+        }
+        
+        .screenshot-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 200, 100, 0.4);
+        }
+        
+        .screenshot-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9em;
+            position: relative;
+        }
+        
+        .screenshot-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .screenshot-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(20, 40, 20, 0.5) 0%, rgba(15, 30, 15, 0.6) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.95em;
+            border-bottom: 1px solid rgba(100, 200, 100, 0.1);
+        }
+        
+        .screenshot-caption {
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .screenshot-caption strong {
+            color: #ffffff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
         }
         
         .stats-grid {
@@ -502,73 +539,53 @@
         }
         
         .stat-box {
-            background: 
-                repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(0, 255, 0, 0.06) 6px, rgba(0, 255, 0, 0.06) 12px),
-                linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 40, 20, 0.85) 100%);
-            padding: 40px;
-            border-radius: 25px;
-            border: 5px solid rgba(0, 255, 0, 0.6);
-            border-style: ridge;
+            background: linear-gradient(135deg, rgba(15, 30, 15, 0.8) 0%, rgba(10, 25, 10, 0.9) 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 200, 100, 0.2);
             text-align: center;
-            transition: all 0.5s;
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                inset 0 0 25px rgba(0, 255, 0, 0.2),
-                0 0 0 2px rgba(0, 255, 0, 0.3),
-                0 0 25px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             position: relative;
         }
         
-        /* Decorative corner elements */
         .stat-box::before {
-            content: '⭐';
+            content: '';
             position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 1.2em;
-            opacity: 0.4;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 100, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        .stat-box::after {
-            content: '⭐';
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 1.2em;
-            opacity: 0.4;
+        .stat-box:hover::before {
+            opacity: 1;
         }
         
         .stat-box:hover {
-            transform: translateY(-12px) scale(1.08);
-            box-shadow: 
-                0 18px 55px rgba(0, 255, 0, 0.6),
-                0 0 45px rgba(0, 255, 0, 0.4),
-                inset 0 0 35px rgba(0, 255, 0, 0.25);
-            border-color: rgba(0, 255, 0, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 200, 100, 0.4);
         }
         
         .stat-number {
-            font-size: 4.5em;
-            font-weight: 900;
-            background: linear-gradient(135deg, #00ff00 0%, #ffff00 50%, #00ff00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            text-shadow: 
-                0 0 30px rgba(0, 255, 0, 0.9),
-                4px 4px 8px rgba(0, 0, 0, 0.8);
-            font-family: 'Courier Prime', monospace;
-            letter-spacing: 2px;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #64c864;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 1px;
         }
         
         .stat-label {
-            font-size: 1.3em;
-            color: rgba(255, 255, 255, 0.95);
-            font-weight: 700;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1px;
         }
         
         ol {
@@ -660,11 +677,11 @@
     <div class="bg-particles"></div>
     <div class="container">
         <header>
-            <h1>⚔️ CARD BATTLER ⚔️</h1>
+            <h1>CARD BATTLER</h1>
             <p class="subtitle">A Python-based deck-building card battler inspired by Slay the Spire</p>
             <div class="cta-buttons">
                 <a href="https://github.com/wnorton26-sketch/Winter-term-game" class="btn btn-primary" target="_blank">
-                    <span>📦 View on GitHub</span>
+                    <span>View on GitHub</span>
                 </a>
                 <a href="#play" class="btn btn-secondary">
                     <span>How to Play</span>
@@ -727,7 +744,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Card System</div>
+                    <div class="milestone-title">Card System</div>
                     <div class="milestone-date">Phase 1 - Completed</div>
                     <div class="milestone-description">
                         Implemented data-driven card system with attacks, skills, and powers. 
@@ -736,7 +753,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Deck Management</div>
+                    <div class="milestone-title">Deck Management</div>
                     <div class="milestone-date">Phase 1 - Completed</div>
                     <div class="milestone-description">
                         Created deck system with draw pile, discard pile, hand management, 
@@ -745,7 +762,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Status Effects</div>
+                    <div class="milestone-title">Status Effects</div>
                     <div class="milestone-date">Phase 2 - Completed</div>
                     <div class="milestone-description">
                         Rich status effect system with buffs (Strength, Dexterity), debuffs (Vulnerable, Weak), 
@@ -754,7 +771,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Procedural Encounters</div>
+                    <div class="milestone-title">Procedural Encounters</div>
                     <div class="milestone-date">Phase 2 - Completed</div>
                     <div class="milestone-description">
                         Implemented procedurally generated enemy encounters that scale with floor level, 
@@ -763,7 +780,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Desktop GUI</div>
+                    <div class="milestone-title">Desktop GUI</div>
                     <div class="milestone-date">Phase 3 - Completed</div>
                     <div class="milestone-description">
                         Built beautiful pixel-art style desktop GUI using tkinter with visual health bars, 
@@ -772,7 +789,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Web Interface</div>
+                    <div class="milestone-title">Web Interface</div>
                     <div class="milestone-date">Phase 3 - Completed</div>
                     <div class="milestone-description">
                         Created web-based interface using Flask with modern, responsive design. 
@@ -781,7 +798,7 @@
                 </div>
                 
                 <div class="milestone-card completed">
-                    <div class="milestone-title">✅ Godot Integration</div>
+                    <div class="milestone-title">Godot Integration</div>
                     <div class="milestone-date">Phase 4 - Completed</div>
                     <div class="milestone-description">
                         Built integration bridge for Godot game engine with HTTP API support, 
@@ -922,6 +939,47 @@ python3 web_gui_enhanced.py<br>
                     And many more!</p>
                 </div>
             </div>
+        </section>
+        
+        <div class="decorative-separator"></div>
+        
+        <section class="section">
+            <h2>Screenshots</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: rgba(255, 255, 255, 0.7); font-size: 1.1em;">
+                Visual showcase of the game interface and gameplay
+            </p>
+            <div class="screenshots-gallery">
+                <div class="screenshot-item">
+                    <div class="screenshot-placeholder">
+                        Gameplay Screenshot 1
+                    </div>
+                    <div class="screenshot-caption">
+                        <strong>Desktop GUI</strong>
+                        Pixel-art style interface with card-based combat
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-placeholder">
+                        Gameplay Screenshot 2
+                    </div>
+                    <div class="screenshot-caption">
+                        <strong>Combat System</strong>
+                        Turn-based battles with status effects and energy management
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-placeholder">
+                        Gameplay Screenshot 3
+                    </div>
+                    <div class="screenshot-caption">
+                        <strong>Card Selection</strong>
+                        Strategic deck building and card play mechanics
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.9em; font-style: italic;">
+                To add screenshots, place image files in the <code>docs/screenshots/</code> directory and update the gallery above.
+            </p>
         </section>
         
         <div class="decorative-separator"></div>
